@@ -40,9 +40,20 @@ public class VentanaUsuario extends JFrame {
                         "Nombre: " + nuevoUsuario.getNombreUsuario() + "\n" +
                         "Correo: " + Usuario.getCorreo() + "\n" +
                         "Rol: " + nuevoUsuario.getRol());
+                Swing swing = new Swing();
+                swing.setVisible(true);
+                dispose();
             }
-        }
-
+        });
+        panel.add(etiquetaNombre);
+        panel.add(etiquetaContrasenia);
+        panel.add(etiquetaCorreo);
+        panel.add(etiquetaRol);
+        panel.add(campoNombre);
+        panel.add(campoContrasenia);
+        panel.add(campoCorreo);
+        panel.add(campoRol);
+        panel.add(botonGuardar);
+        add(panel);
     }
-
 }

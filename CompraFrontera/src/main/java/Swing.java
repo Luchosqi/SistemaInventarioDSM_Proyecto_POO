@@ -25,9 +25,16 @@ public class Swing extends JFrame {
          boton.addActionListener(new ActionListener() {
              @Override
              public void actionPerformed(ActionEvent e) {
-
-
+                 Swing swing = new Swing();
+                 swing.setVisible(true);
+                 dispose();
              }
-         })
+         });
+         panel.add(mensaje);
+         panel.add(cliente);
+         panel.add(ususario);
+         panel.add(admin);
+         panel.add(boton);
+         add(panel);
     }
 }
