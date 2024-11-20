@@ -4,8 +4,8 @@ public class Bebestible extends Producto{
 
     private String mililitros;
 
-    public Bebestible(boolean estado, int precio, String descripcion, String nombre, String mililitros) {
-        super(estado, precio, descripcion, nombre);
+    public Bebestible(boolean estado, int precio, String descripcion, String nombre, String mililitros, int stock) {
+        super(estado, precio, descripcion, nombre, stock);
         this.mililitros = mililitros;
     }
 

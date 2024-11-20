@@ -7,12 +7,12 @@ public class Administrador extends Usuario {
     }
 
     public void gestionarMenu(){
-
+        System.out.println("Menu gestionado correctamente.");
     }
     public void gestionarPedidos(){
-
+        System.out.println("Pedidos gestionados correctamente.");
     }
     public void revisarPagos(){
-
+        System.out.println("Pagos revisados correctamente.");
     }
 }
