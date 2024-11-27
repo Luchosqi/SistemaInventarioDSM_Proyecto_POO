@@ -1,51 +1,48 @@
-
 import Cartel.Bebestible;
 import Cartel.Comestible;
-import Cartel.Producto;
 import Usuarios.Cliente;
-import java.util.ArrayList;
+import Mensajeria.Pedido;
 import java.util.List;
+import java.time.LocalDate;
 
 public class Main {
     public static void main(String[] args) {
-        // Crear productos
-        Bebestible bebestible = new Bebestible(
-                true,
-                1500,
-                "Jugo de naranja natural",
-                "Jugo de Naranja",
-                "500ml",
-                10
-        );
+        try {
+            System.out.println("=== Iniciando pruebas del sistema de compras ===");
 
-        Comestible comestible = new Comestible(
-                true,
-                2500,
-                "Galletas de avena y chocolate",
-                "Galletas de Avena",
-                "200g",
-                15
-        );
+            // Crear un cliente
+            Cliente cliente = new Cliente("Luis Jaramillo", "1234", "l.jaramillo02@ufromail.cl", "Cliente", 10000);
+            System.out.println("Cliente creado: " + cliente.getNombreUsuario());
 
-        // Crear cliente
-        Cliente cliente = new Cliente(
-                "Luis Jaramillo",
-                "1234",
-                "l.jaramillo02@ufromail.cl",
-                "Cliente",
-                5000 // Saldo inicial
-        );
+            // Crear productos
+            Bebestible bebida = new Bebestible(true, 1500, "Jugo de Naranja", "Jugo Natural", "500ml", 20);
+            Comestible snack = new Comestible(true, 2500, "Galletas de Chocolate", "Galletas Choco", "200g", 15);
+            System.out.println("Productos creados: ");
+            System.out.println("- " + bebida.getNombre() + " ($" + bebida.getPrecio() + ")");
+            System.out.println("- " + snack.getNombre() + " ($" + snack.getPrecio() + ")");
 
-        // Agregar productos al pedido
-        List<Producto> productos = new ArrayList<>();
-        productos.add(bebestible);
-        productos.add(comestible);
+            // Guardar productos en la base de datos
+            bebida.guardarEnBaseDeDatos();
+            snack.guardarEnBaseDeDatos();
 
-        // Realizar pedido
-        System.out.println("Realizando pedido...");
-        cliente.realizarPedido(productos);
+            // Simular un pedido
+            System.out.println("\n=== Realizando pedido ===");
+            cliente.realizarPedido(List.of(bebida, snack));
 
-        // Fin del programa
-        System.out.println("Programa finalizado.");
+            // Simular guardar el pedido en la base de datos (para completar el ciclo)
+            Pedido pedido = new Pedido(LocalDate.now(), cliente);
+            pedido.agregarProducto(bebida);
+            pedido.agregarProducto(snack);
+            pedido.calcularTotal();
+            System.out.println("Pedido total: $" + pedido.getTotalPedido());
+
+            // Si tuvieras un método para guardar el pedido, sería así:
+            // pedido.guardarPedidoEnBaseDeDatos();
+
+            System.out.println("\n=== Pruebas finalizadas correctamente ===");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Ocurrió un error durante las pruebas.");
+        }
     }
 }
