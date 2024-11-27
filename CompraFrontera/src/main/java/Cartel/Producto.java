@@ -71,7 +71,13 @@ public class Producto {
         this.estado = this.stock > 0;
     }
 
-    public void actualizarPrecio() {
-
+    public void actualizarPrecio(int nuevoPrecio) {
+        if (nuevoPrecio > 0) {
+            this.precio = nuevoPrecio;
+            System.out.println("El precio ha sido actualizado a $" + nuevoPrecio);
+        } else {
+            System.out.println("El precio debe ser mayor a cero.");
+        }
     }
+
 }

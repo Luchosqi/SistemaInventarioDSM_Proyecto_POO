@@ -1,109 +1,51 @@
-import Usuarios.Usuario;
-import Usuarios.Administrador;
+
+import Cartel.Bebestible;
+import Cartel.Comestible;
+import Cartel.Producto;
 import Usuarios.Cliente;
-
-
-
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
-
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Bienvenido al sistema de gestión.");
-        System.out.println("Seleccione su rol:");
-        System.out.println("1. Cliente");
-        System.out.println("2. Administrador");
-        System.out.print("Ingrese su opción: ");
-        int opcionRol = scanner.nextInt();
-        scanner.nextLine();
+        // Crear productos
+        Bebestible bebestible = new Bebestible(
+                true,
+                1500,
+                "Jugo de naranja natural",
+                "Jugo de Naranja",
+                "500ml",
+                10
+        );
 
-        if (opcionRol == 1) {
-            gestionarCliente(scanner);
-        } else if (opcionRol == 2) {
-            gestionarAdministrador(scanner);
-        } else {
-            System.out.println("Opción inválida. Saliendo del sistema.");
-        }
+        Comestible comestible = new Comestible(
+                true,
+                2500,
+                "Galletas de avena y chocolate",
+                "Galletas de Avena",
+                "200g",
+                15
+        );
 
-        scanner.close();
-    }
+        // Crear cliente
+        Cliente cliente = new Cliente(
+                "Luis Jaramillo",
+                "1234",
+                "l.jaramillo02@ufromail.cl",
+                "Cliente",
+                5000 // Saldo inicial
+        );
 
-    private static void gestionarCliente(Scanner scanner) {
-        System.out.println("=== Cliente ===");
-        System.out.print("Ingrese su nombre de usuario: ");
-        String nombreUsuario = scanner.nextLine();
-        System.out.print("Ingrese su contraseña: ");
-        String contrasenia = scanner.nextLine();
+        // Agregar productos al pedido
+        List<Producto> productos = new ArrayList<>();
+        productos.add(bebestible);
+        productos.add(comestible);
 
-        Cliente cliente = new Cliente(nombreUsuario, contrasenia, "cliente@correo.com", "Cliente", 1000);
-        System.out.println("¡Bienvenido, " + cliente.getNombreUsuario() + "!");
-        System.out.println("Saldo disponible: $" + cliente.getSaldo());
+        // Realizar pedido
+        System.out.println("Realizando pedido...");
+        cliente.realizarPedido(productos);
 
-        int opcion;
-        do {
-            System.out.println("\nOpciones disponibles:");
-            System.out.println("1. Realizar pedido");
-            System.out.println("2. Recargar saldo");
-            System.out.println("3. Salir");
-            System.out.print("Seleccione una opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcion) {
-                case 1:
-                    cliente.realizarPedido();
-                    break;
-                case 2:
-                    cliente.recargarSaldo();
-                    break;
-                case 3:
-                    System.out.println("Saliendo del sistema...");
-                    break;
-                default:
-                    System.out.println("Opción no válida.");
-            }
-        } while (opcion != 3);
-    }
-
-    private static void gestionarAdministrador(Scanner scanner) {
-        System.out.println("=== Administrador ===");
-        System.out.print("Ingrese su nombre de usuario: ");
-        String nombreUsuario = scanner.nextLine();
-        System.out.print("Ingrese su contraseña: ");
-        String contrasenia = scanner.nextLine();
-
-        Administrador administrador = new Administrador(nombreUsuario, contrasenia,
-                "admin@correo.com", "Administrador");
-        System.out.println("¡Bienvenido, " + administrador.getNombreUsuario() + "!");
-
-        int opcion;
-        do {
-            System.out.println("\nOpciones disponibles:");
-            System.out.println("1. Gestionar menú");
-            System.out.println("2. Gestionar pedidos");
-            System.out.println("3. Revisar pagos");
-            System.out.println("4. Salir");
-            System.out.print("Seleccione una opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (opcion) {
-                case 1:
-                    administrador.gestionarMenu();
-                    break;
-                case 2:
-                    administrador.gestionarPedidos();
-                    break;
-                case 3:
-                    administrador.revisarPagos();
-                    break;
-                case 4:
-                    System.out.println("Saliendo del sistema...");
-                    break;
-                default:
-                    System.out.println("Opción no válida.");
-            }
-        } while (opcion != 4);
+        // Fin del programa
+        System.out.println("Programa finalizado.");
     }
 }

@@ -73,4 +73,12 @@ public class Menu {
             producto.setPrecio(precioConDescuento);
         }
     }
+    public void eliminarProducto(Producto producto) {
+        if (productos.remove(producto)) {
+            System.out.println("Producto eliminado: " + producto.getNombre());
+        } else {
+            System.out.println("El producto no se encuentra en el menú.");
+        }
+    }
+
 }
