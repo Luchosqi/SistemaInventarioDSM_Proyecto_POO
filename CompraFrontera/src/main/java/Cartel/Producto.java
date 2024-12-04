@@ -1,7 +1,7 @@
 package Cartel;
 import java.sql.*;
+import DB.DatabaseConnection;
 
-package Cartel;
 
 public class Producto {
     private int id; // Nuevo atributo
@@ -11,7 +11,7 @@ public class Producto {
     private boolean estado;
     private int stock;
 
-    // Constructor para creación en memoria (sin ID)
+
     public Producto(boolean estado, int precio, String descripcion, String nombre, int stock) {
         this.estado = estado;
         this.precio = precio;
@@ -89,18 +89,29 @@ public class Producto {
     }
 
 
-    public void eliminarStock(int cantidad) {
-        if (cantidad > 0) {
-            if (this.stock >= cantidad) {
-                this.stock -= cantidad;
-                System.out.println("Se han eliminado " + cantidad + " unidades. Stock actual: " + stock);
-            } else {
-                System.out.println("No hay suficiente stock para eliminar " + cantidad + " unidades.");
-            }
-        } else {
+    public boolean eliminarStock(int cantidad) {
+        if (cantidad <= 0) {
             System.out.println("La cantidad para eliminar debe ser positiva.");
+            return false;
+        }
+        if (this.stock >= cantidad) {
+            this.stock -= cantidad;
+
+
+            if (this.stock == 0) {
+                this.estado = false;
+            }
+
+
+            actualizarStockEnBaseDeDatos();
+            System.out.println("Se han eliminado " + cantidad + " unidades. Stock actual: " + stock);
+            return true;
+        } else {
+            System.out.println("No hay suficiente stock para eliminar " + cantidad + " unidades.");
+            return false;
         }
     }
+
 
 
     public void actualizarEstado() {
@@ -126,7 +137,7 @@ public class Producto {
             stmt.setInt(5, this.stock);
             stmt.executeUpdate();
 
-            // Obtener el ID generado automáticamente
+
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
                 this.id = generatedKeys.getInt(1);

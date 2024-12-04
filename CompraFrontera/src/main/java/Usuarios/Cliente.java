@@ -42,8 +42,7 @@ public class Cliente extends Usuario {
 
             System.out.println("Pedido realizado. Saldo restante: $" + saldo);
 
-            // Aquí podrías llamar a un método para guardar el pedido en la base de datos
-            //
+
             pedido.guardarPedidoEnBaseDeDatos();
         } else {
             System.out.println("Saldo insuficiente para realizar el pedido.");

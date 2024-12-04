@@ -26,7 +26,7 @@ public class Notificacion {
             }
         });
 
-        // Generar el cuerpo del mensaje
+
         String asunto = "Detalles de tu Pedido en CompraFrontera";
         String cuerpo = "Estimado/a " + cliente.getNombreUsuario() + ",\n\n"
                 + "¡Gracias por realizar tu compra con nosotros!\n"
@@ -42,7 +42,6 @@ public class Notificacion {
             mensaje.setSubject(asunto);
             mensaje.setText(cuerpo);
 
-            // Enviar correo
             Transport.send(mensaje);
             System.out.println("Correo enviado correctamente a " + cliente.getCorreo());
         } catch (MessagingException e) {

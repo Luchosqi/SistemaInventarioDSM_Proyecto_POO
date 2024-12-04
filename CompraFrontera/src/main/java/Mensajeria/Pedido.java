@@ -7,6 +7,8 @@ import java.util.List;
 import Cartel.Producto;
 import Usuarios.Cliente;
 
+import DB.DatabaseConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -18,7 +20,7 @@ public class Pedido {
     private List<Producto> productos;
     private Cliente cliente;
 
-    // Constructor sin ID (para pedidos nuevos)
+
     public Pedido(LocalDate fecha, Cliente cliente) {
         this.fecha = fecha;
         this.cliente = cliente;
