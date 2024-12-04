@@ -5,6 +5,7 @@ import Cartel.Producto;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,11 +83,8 @@ public class MenuCliente extends JFrame {
     }
 
     private List<Producto> cargarProductos() {
-        // Simula la carga de productos desde la base de datos
-        return List.of(
-                new Producto(true, 5000, "Bebida", "Coca-Cola", 10),
-                new Producto(true, 1500, "Snack", "Papas Fritas", 20)
-        );
+        ProductoDAO productoDAO = new ProductoDAO();
+        return productoDAO.cargarProductos();
     }
 
     private void cargarProductosEnLista() {

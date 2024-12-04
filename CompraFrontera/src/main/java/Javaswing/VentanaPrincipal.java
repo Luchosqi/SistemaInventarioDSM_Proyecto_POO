@@ -12,7 +12,7 @@ public class VentanaPrincipal extends JFrame {
     private JButton btnRegistrar, btnIniciarSesion;
 
     public VentanaPrincipal() {
-        setTitle("Registro de Cliente");
+        setTitle("CompraFrontera");
         setSize(400, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
@@ -60,31 +60,43 @@ public class VentanaPrincipal extends JFrame {
         btnRegistrar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String nombre = txtNombreUsuario.getText();
-                String contrasenia = String.valueOf(txtContrasenia.getPassword());
-                String correo = txtCorreo.getText();
-                int saldo = Integer.parseInt(txtSaldo.getText());
+                try {
 
-                Cliente nuevoCliente = new Cliente(nombre, contrasenia, correo, "Cliente", saldo);
-                // Guardar en la base de datos
-                guardarClienteEnBD(nuevoCliente);
-                JOptionPane.showMessageDialog(null, "Cliente registrado exitosamente");
+                    String nombre = txtNombreUsuario.getText();
+                    String contrasenia = String.valueOf(txtContrasenia.getPassword());
+                    String correo = txtCorreo.getText();
+                    int saldo = Integer.parseInt(txtSaldo.getText());
+
+
+                    Cliente nuevoCliente = new Cliente(nombre, contrasenia, correo, "Cliente", saldo);
+                    if (nuevoCliente.existeUsuario(nombre,correo)){
+                        JOptionPane.showMessageDialog(null, "El nombre de usuario o correo " +
+                                "ya está registrado. Por favor, elige otro.");
+                    } else {
+
+                        nuevoCliente.registrarUsuarioEnBaseDeDatos();
+                        JOptionPane.showMessageDialog(null, "Cliente registrado exitosamente.");
+                    }
+
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Error al registrar cliente: " + ex.getMessage());
+                    ex.printStackTrace();
+                }
             }
         });
+
 
         btnIniciarSesion.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Aquí puedes agregar la lógica para iniciar sesión y redirigir al menú de cliente
+
                 new MenuCliente().setVisible(true);
                 dispose();
             }
         });
     }
 
-    private void guardarClienteEnBD(Cliente cliente) {
-        cliente.registrarUsuario(); // Llama a la lógica para guardar el cliente en BD
-    }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new VentanaPrincipal().setVisible(true));
