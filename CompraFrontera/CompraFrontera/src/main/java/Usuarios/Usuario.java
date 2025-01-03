@@ -1,10 +1,11 @@
 package Usuarios;
-
+// Esta clase se creo pensada para crear un Cliente y un Administrador.
+// Por temas de complicaciones a la hora de otorgar funcionalidades al administrador se elimino la clase Administrador.
 public class Usuario {
 
     private String nombreUsuario;
     private String contrasenia;
-    private static String correo;
+    private String correo; // Se utiliza como un String sin utilidad real en los correos.
     private String rol;
 
     public Usuario(String nombreUsuario, String contrasenia, String correo, String rol) {
@@ -26,12 +27,9 @@ public class Usuario {
         this.contrasenia = contrasenia;
     }
 
-    public static String getCorreo() {return correo;}
+    public String getCorreo() {return correo;}
 
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
+    public void setCorreo(String correo) {this.correo = correo;}
 
     public String getRol() {return rol;}
 
@@ -39,13 +37,4 @@ public class Usuario {
         this.rol = rol;
     }
 
-    public void registrarUsuario() {
-
-    }
-    public void iniciarSesion() {
-
-    }
-    public void actualizarDatos() {
-
-    }
 }

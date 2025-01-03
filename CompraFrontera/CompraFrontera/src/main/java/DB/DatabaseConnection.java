@@ -7,14 +7,13 @@ import java.sql.SQLException;
     public class DatabaseConnection {
         private static final String URL = "jdbc:mysql://localhost:32769/CompraFrontera";
         private static final String USER = "root";
-        private static final String PASSWORD = "12345";
+        private static final String PASSWORD = "benja21babg09";
 
         public static Connection getConnection() {
             Connection connection = null;
             try {
 
                 Class.forName("com.mysql.cj.jdbc.Driver");
-
 
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
                 System.out.println("Conexión exitosa a la base de datos.");
