@@ -29,6 +29,7 @@ public class PedidoTest {
 
         mockCliente = mock(Cliente.class);
         when(mockCliente.getNombreUsuario()).thenReturn("Juan");
+        when(mockCliente.getId()).thenReturn(1);
         when(mockCliente.getSaldo()).thenReturn(5000);
 
         Producto producto1 = mock(Producto.class);
@@ -43,7 +44,6 @@ public class PedidoTest {
         mockProductos.add(producto1);
         mockProductos.add(producto2);
 
-
         pedido = new Pedido();
         pedido.setFecha(java.time.LocalDate.now());
         pedido.setCliente(mockCliente);
@@ -53,6 +53,7 @@ public class PedidoTest {
 
     @Test
     public void testGuardarPedidoEnBaseDeDatos() throws SQLException {
+
         Connection mockConnection = mock(Connection.class);
         PreparedStatement mockStmtPedido = mock(PreparedStatement.class);
         PreparedStatement mockStmtProductos = mock(PreparedStatement.class);
@@ -61,10 +62,10 @@ public class PedidoTest {
         try (MockedStatic<DatabaseConnection> mockedDatabaseConnection = mockStatic(DatabaseConnection.class)) {
 
             mockedDatabaseConnection.when(DatabaseConnection::getConnection).thenReturn(mockConnection);
-
             when(mockConnection.prepareStatement(anyString(), eq(PreparedStatement.RETURN_GENERATED_KEYS)))
                     .thenReturn(mockStmtPedido);
             when(mockConnection.prepareStatement(anyString())).thenReturn(mockStmtProductos);
+
             when(mockStmtPedido.getGeneratedKeys()).thenReturn(mockGeneratedKeys);
             when(mockGeneratedKeys.next()).thenReturn(true);
             when(mockGeneratedKeys.getInt(1)).thenReturn(1);
@@ -76,16 +77,17 @@ public class PedidoTest {
             verify(mockStmtPedido).setInt(2, mockCliente.getId());
             verify(mockStmtPedido).setInt(3, pedido.getTotalPedido());
             verify(mockStmtPedido).executeUpdate();
+
             verify(mockStmtProductos, times(mockProductos.size())).setInt(eq(1), anyInt());
             verify(mockStmtProductos, times(mockProductos.size())).addBatch();
             verify(mockStmtProductos).executeBatch();
+
             verify(mockConnection).commit();
 
             assertNotNull(pedido.getId());
             assertEquals(1, pedido.getId());
         }
     }
-
 
     @Test
     public void testGenerarDetalles() {
@@ -107,4 +109,3 @@ public class PedidoTest {
     }
 
 }
-
