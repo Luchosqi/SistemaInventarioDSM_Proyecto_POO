@@ -51,15 +51,15 @@ public class ClienteTest {
     @Test
     public void verificarCredenciales_Test() throws SQLException {
 
-        String testNombreUsuario = "validUser";
-        String testContrasenia = "validPassword";
+        String testNombreUsuario = "UsuarioValido";
+        String testContrasenia = "contraseniaValida";
 
         ResultSet mockedResultSet = mock(ResultSet.class);
         when(mockedResultSet.next()).thenReturn(true);
         when(mockedResultSet.getInt("id")).thenReturn(1);
         when(mockedResultSet.getString("nombre_usuario")).thenReturn(testNombreUsuario);
         when(mockedResultSet.getString("contrasenia")).thenReturn(testContrasenia);
-        when(mockedResultSet.getString("correo")).thenReturn("test@example.com");
+        when(mockedResultSet.getString("correo")).thenReturn("correo@ejemplo.com");
         when(mockedResultSet.getString("rol")).thenReturn("Cliente");
         when(mockedResultSet.getInt("saldo")).thenReturn(100);
 
@@ -80,7 +80,7 @@ public class ClienteTest {
             assertEquals(1, cliente.getId());
             assertEquals(testNombreUsuario, cliente.getNombreUsuario());
             assertEquals(testContrasenia, cliente.getContrasenia());
-            assertEquals("test@example.com", cliente.getCorreo());
+            assertEquals("correo@ejemplo.com", cliente.getCorreo());
             assertEquals("Cliente", cliente.getRol());
             assertEquals(100, cliente.getSaldo());
 

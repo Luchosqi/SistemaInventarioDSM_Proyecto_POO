@@ -22,7 +22,7 @@ public class DatabaseConnectionTest {
     }
 
     @Test
-    public void testGetConnectionSuccess() throws SQLException {
+    public void testConnexionExitosa() throws SQLException {
 
         Connection mockConnection = mock(Connection.class);
 

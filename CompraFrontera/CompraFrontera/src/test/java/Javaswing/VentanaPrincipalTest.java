@@ -10,7 +10,7 @@ class VentanaPrincipalTest {
 
 
     @Test
-    void testRegistrarButton_EmptyFields_ShowsErrorMessage() {
+    void testRegistrarButton() {
         VentanaPrincipal ventanaPrincipal = new VentanaPrincipal();
 
         ventanaPrincipal.txtNombreUsuario.setText("usuarioPrueba");

@@ -33,15 +33,10 @@ public class Pedido {
     }
 
     public int getId() {return id;}
-
-    public void setId(int id) {this.id = id;}
     public LocalDate getFecha() {return fecha;}
     public void setFecha(LocalDate fecha) {this.fecha = fecha;}
     public void setTotalPedido(int totalPedido) {this.totalPedido = totalPedido;}
 
-    public List<Producto> getProductos() {return productos;}
-
-    public Cliente getCliente() {return cliente;}
 
     public void setCliente(Cliente cliente) {this.cliente = cliente;}
 
@@ -70,6 +65,7 @@ public class Pedido {
         detalles.append("Total: $").append(totalPedido).append("\n");
         detalles.append("Saldo anterior: $").append(saldoAnterior).append("\n");
         detalles.append("Saldo restante: $").append(cliente.getSaldo()).append("\n");
+        System.out.println("Detalles del pedido generados correctamente.");
         return detalles.toString();
     }
 

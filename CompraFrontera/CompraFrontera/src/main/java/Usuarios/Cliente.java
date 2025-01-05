@@ -49,7 +49,10 @@ public class Cliente extends Usuario {
                 this.setCorreo(rs.getString("correo"));
                 this.setRol(rs.getString("rol"));
                 this.saldo = rs.getInt("saldo");
-                System.out.println("Saldo cargado desde la base de datos: " + this.saldo); // Depuración
+                System.out.println("Nombre de usuario: " + this.getNombreUsuario());
+                System.out.println("Contrasenia: " + this.getContrasenia());
+                System.out.println("Correo: " + this.getCorreo());
+                System.out.println("Saldo cargado desde la base de datos: " + this.saldo);
                 return true;
             }
         } catch (SQLException e) {
